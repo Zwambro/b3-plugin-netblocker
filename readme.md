@@ -25,6 +25,22 @@ The plugin can handle IP addresses or ranges in the following formats:
     
     netblock: 127.0.0.1, 127.0.0.1-127.0.10.225, 168.0.0.0/8, 127.0/8
 
+## whitelist Names
+
+The plugin can handle name in the following formats:
+
+- single name: ZOMBIE
+- Multiple names: ZOMBIE, ZWAMBRO, Z@MBIE
+
+## Whitelist IP
+
+The plugin can handle allowed IP(s) in the following formats:
+
+- single IP address: 127.0.0.1
+- IP range: 127.0.0.1-127.0.0.100
+- CIDR notation: 192.168.100.0/24
+- combination of the above seperated by a comma (,)
+
 ## Installation
 
 1. copy the contents of the extplugins folder into your installations b3/extplugins folder.
