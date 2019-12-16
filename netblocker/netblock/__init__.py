@@ -3,3 +3,7 @@
 # oh so convenient.
 # TODO: do this better.
 from netblock import *
+import sys
+# Edit the path to your path
+sys.path.append(
+    'C:/Users/username/Desktop/gameserverfolder/b3/b3/extplugins/netblocker/netblock')
