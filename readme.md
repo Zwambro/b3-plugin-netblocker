@@ -5,7 +5,8 @@ of security. If you need to secure your system you should use a proper firewall.
 
 This plugin can be used to prevent clients from playing on your B3 enabled server. It checks the IP address against
 your list of blocked IP's when the client is authorized by B3. If the address is prohibited from connecting the client
-will be kicked consequently.
+will be kicked consequently. 
+But you can add trusted IP to **allowedip** on `netblocker.ini`
 
 The plugin can handle only IPv4 type IP addresses and relies on the game/parser on providing that IP address to the plugin.
 
@@ -31,7 +32,7 @@ The plugin can handle IP addresses or ranges in the following formats:
 
         <plugin name="netblocker" config="@b3/extplugins/conf/netblocker.ini"/>
 
-3. modify the netblocker.ini and add your unwanted IP's and ranges
+3. modify the netblocker.ini and add your unwanted IP's and ranges, or trusted names or IP to be connected.
 4. restart the bot
 
 
