@@ -135,5 +135,5 @@ class NetblockerPlugin(b3.plugin.Plugin):
                     # client not allowed to connect
                     self.debug('client refused: %s (%s)',
                                client.ip, client.name)
-                    client.kick("^1Blacklisted Player^7")
+                    client.kick("^1Blacklisted Player^7", keyword="Blacklisted", silent=True)
                     return False
