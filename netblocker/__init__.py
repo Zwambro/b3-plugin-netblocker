@@ -26,8 +26,11 @@
 # * Fixing no module error
 # * Adding whitelist IP: if trusted IP in banned IP range
 # * Adding whitelist Name: if trusted player name has IP in banned IP range
+#
+# 26-12-2019 : v1.12 : ZOMBIE
+# * Kicking banned IP players silently
 
-__version__ = '1.1'
+__version__ = '1.12'
 __author__ = 'xlr8or'
 
 import b3
@@ -135,5 +138,6 @@ class NetblockerPlugin(b3.plugin.Plugin):
                     # client not allowed to connect
                     self.debug('client refused: %s (%s)',
                                client.ip, client.name)
-                    client.kick("^1Blacklisted Player^7", keyword="Blacklisted", silent=True)
+                    client.kick("^1Blacklisted Player^7",
+                                keyword="Blacklisted", silent=True)
                     return False
