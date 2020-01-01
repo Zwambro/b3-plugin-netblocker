@@ -43,13 +43,14 @@ The plugin can handle allowed IP(s) in the following formats:
 
 ## Installation
 
-1. copy the contents of the extplugins folder into your installations b3/extplugins folder.
-2. add the plugin to your b3.xml config file:
+1. delete the old **Netblocker** from `/b3/plugins/` 
+2. copy the contents of the extplugins folder into your installations b3/extplugins folder.
+3. add the plugin to your b3.xml config file:
 
         <plugin name="netblocker" config="@b3/extplugins/conf/netblocker.ini"/>
 
-3. modify the netblocker.ini and add your unwanted IP's and ranges, or trusted names or IP to be connected.
-4. restart the bot
+4. modify the netblocker.ini and add your unwanted IP's and ranges, or trusted names or IP to be connected.
+5. restart the bot
 
 
 ----
