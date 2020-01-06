@@ -43,7 +43,7 @@ The plugin can handle allowed IP(s) in the following formats:
 
 ## Installation
 
-1. delete the old **Netblocker** from `/b3/plugins/` 
+1. delete the **Netblocker** plugin from `/b3/plugins/` 
 2. copy the contents of the extplugins folder into your installations b3/extplugins folder.
 3. add the plugin to your b3.xml config file:
 
