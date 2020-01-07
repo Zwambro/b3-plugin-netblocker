@@ -134,7 +134,7 @@ class NetblockerPlugin(b3.plugin.Plugin):
                 # check if clients ip is in the disallowed range
                 if _b[0] <= _ip[0] <= _b[1]:
                     # client not allowed to connect
-                    time.sleep(2)
+                    time.sleep(3)
                     self.debug('client refused: %s (%s)',
                                client.ip, client.name)
                     client.kick("^1Blacklisted Player^7",
