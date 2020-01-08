@@ -33,17 +33,21 @@
 __version__ = '1.12'
 __author__ = 'xlr8or'
 
+# Edit the path to your path
+import sys
+sys.path.append(
+    'C:/Users/username/Desktop/folder/b3/b3/extplugins/netblocker/netblock')
+
+# b3 events
 import b3
 import b3.events
 import b3.plugin
-import b3.extplugins.netblock as netblock
 
 #import netblock as netblock
+import netblock as netblock
+
+#import time for sleep time
 import time
-import sys
-# Edit the path to your path
-sys.path.append(
-    'C:/Users/username/Desktop/gameserverfolder/b3/b3/extplugins/netblocker/netblock')
 
 
 class NetblockerPlugin(b3.plugin.Plugin):
