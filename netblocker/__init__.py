@@ -22,15 +22,20 @@
 # 06-12-2014 : v1.0.0beta : xlr8or
 # * First edition of the netblocker
 #
-# 08-12-2019 : v1.1 : ZOMBIE
+# 08-12-2019 : v1.1 : Zwambro
 # * Fixing no module error
 # * Adding whitelist IP: if trusted IP in banned IP range
 # * Adding whitelist Name: if trusted player name has IP in banned IP range
 #
-# 26-12-2019 : v1.12 : ZOMBIE
+# 26-12-2019 : v1.12 : Zwambro
 # * Kicking banned IP players silently
+#
+# 30-05-2020 : v1.13 : Zwambro
+# * add sleep time to check player is still on server 
+# * fix multiple allowed names and ips
+#
 
-__version__ = '1.12'
+__version__ = '1.13'
 __author__ = 'xlr8or'
 
 # Edit the path to your path
@@ -53,8 +58,9 @@ import time
 class NetblockerPlugin(b3.plugin.Plugin):
 
     _adminPlugin = None
-    _alloweds = []
-    _blocks = []
+    _whitelist_ips = []
+    _whitelist_names = []
+    _blacklist_ips = []
     _maxLevel = 1
 
     ####################################################################################################################
@@ -85,17 +91,18 @@ class NetblockerPlugin(b3.plugin.Plugin):
         """
         try:
             # seperate entries on the ,
-            _a = self.config.get('settings', 'allowedip').split(',')
-            _n = self.config.get('settings', 'allowednames').split(',')
-            _l = self.config.get('settings', 'netblock').split(',')
+            _a = self.config.get('settings', 'whitelist_ips').split(',')
+            _n = self.config.get('settings', 'whitelist_names').split(',')
+            _l = self.config.get('settings', 'blacklist_ips').split(',')
             # strip leading and trailing whitespaces from each list entry
-            self._alloweds = [y.strip() for y in _a]
-            self._allowednames = [z.strip() for z in _n]
-            self._blocks = [x.strip() for x in _l]
+            self._whitelist_ips = [y.strip() for y in _a]
+            self._whitelist_names = [z.strip() for z in _n]
+            self._blacklist_ips = [x.strip() for x in _l]
         except Exception, err:
             self.error(err)
-        self.debug('Accepted netblocks: %s' % self._alloweds)
-        self.debug('Refused netblocks: %s' % self._blocks)
+        self.debug('Allowed netblocks ips: %s' % self._whitelist_ips)
+        self.debug('Allowed netblocks name: %s' % self._whitelist_names)
+        self.debug('Refused netblocks ips: %s' % self._blacklist_ips)
         try:
             self._maxLevel = self.config.get('settings', 'maxlevel')
         except Exception, err:
@@ -121,26 +128,25 @@ class NetblockerPlugin(b3.plugin.Plugin):
             self.debug(
                 '%s is a higher level user, and allowed to connect', client.name)
             return True
-        elif str(client.ip) in self._alloweds:
-            self.debug("IP on whitelist, allow to connect")
+        elif str(client.ip) in self._whitelist_ips:
+            self.debug("Tis ip (%s) on whitelist ips, allowed to connect" % (client.ip))
             return True
-        elif client.name in self._allowednames:
-            self.debug('Name on allowed names')
+        elif client.name in self._whitelist_names:
+            self.debug('This Name (%s) on whitelist names, allowed to connect' % (client.name))
             return True
 
         else:
             # transform ip address
             _ip = netblock.convert(client.ip)
             # cycle through our blocks
-            for _block in self._blocks:
+            for _block in self._blacklist_ips:
                 # convert each block
                 _b = netblock.convert(_block)
                 # check if clients ip is in the disallowed range
                 if _b[0] <= _ip[0] <= _b[1]:
                     # client not allowed to connect
-                    time.sleep(3)
-                    self.debug('client refused: %s (%s)',
-                               client.ip, client.name)
-                    client.kick("^1Blacklisted Player^7",
-                                keyword="Blacklisted", silent=True)
+                    time.sleep(4)
+                    if client in self.console.clients.getList():
+                        self.debug('client refused: %s (%s)' % (client.ip, client.name))
+                        client.kick("^1Blacklisted Player^7", keyword="Blacklisted", silent=True)
                     return False
